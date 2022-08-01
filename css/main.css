@@ -47,10 +47,24 @@ body {height: 100vh; overflow: hidden;}
   z-index: 2;
 }
 
+.sub_title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.sub_title::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 16px;
+  background: #ccc;
+  margin: 0 10px;
+}
+
 .top_inner, .bottom_inner {
   width: 100%; height: 100%;
   padding: 70px; box-sizing: border-box;
-  /* background: #20B5AE; */
+  background: #20B5AE;
 }
 
 .top_inner {
@@ -66,17 +80,12 @@ body {height: 100vh; overflow: hidden;}
   bottom: 100px;
   left: calc(50% + 80px);
   transform: translateX(-50%);
+  transition: all 0.6s;
   cursor: pointer;
   z-index: 10;
   display: flex;
   gap: 10px;
   align-items: center;
-}
-
-.scroll_btn:hover .main_btn,
-.scroll_btn.on:hover .main_btn {
-  width: 60px;
-  height: 60px;
 }
 
 .scroll_btn .main_btn {
@@ -89,7 +98,7 @@ body {height: 100vh; overflow: hidden;}
 .scroll_btn .arrow {
   width: 1px;
   height: 36px;
-  background: #fff;
+  background: #333;
   position: absolute;
   top: -16px; left: 50%;
   transition: all 0.4s;
@@ -99,7 +108,7 @@ body {height: 100vh; overflow: hidden;}
   width: 100%; height: 100%;
   position: absolute;
   top: 0px; left: 0;
-  border: 1px solid #fff;
+  border: 1px solid #333;
   border-radius: 50%;
   transition: all 0.8s ease-out;
 }
@@ -109,7 +118,7 @@ body {height: 100vh; overflow: hidden;}
   content: "";
   width: 1px;
   height: 7px;
-  background: #fff;
+  background: #333;
   position: absolute;
   bottom: 0;
 }
@@ -123,9 +132,8 @@ body {height: 100vh; overflow: hidden;}
   transform: rotate(-135deg);
 }
 
-
 .scroll_btn .text {
-  color: #fff;
+  color: #333;
   font-size: 14px;
 }
 
@@ -151,8 +159,67 @@ body {height: 100vh; overflow: hidden;}
   background: #333;
 }
 
+.side_btn {
+  position: absolute;
+  top: calc(50% - 33px);
+  right: 30px;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
 
-  
+.side_btn .main_btn {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  transition: all 0.4s;
+}
+
+.side_btn .arrow {
+  width: 36px;
+  height: 1px;
+  background: #333;
+  position: absolute;
+  top: 50%; left: -18px;
+  transition: all 0.4s;
+}
+
+.side_btn .circle {
+  width: 100%; height: 100%;
+  position: absolute;
+  top: 0px; left: 0;
+  border: 1px solid #333;
+  border-radius: 50%;
+  transition: all 0.8s ease-out;
+}
+
+.side_btn .arrow::before,
+.side_btn .arrow::after {
+  content: "";
+  width: 1px;
+  height: 7px;
+  background: #333;
+  position: absolute;
+  right: 2px;
+}
+
+.side_btn .arrow::before {
+  bottom: -1px;
+  transform: rotate(135deg);
+}
+.side_btn .arrow::after {
+  bottom: -5px;
+  transform: rotate(-135deg);
+}
+
+.side_btn .text {
+  color: #333;
+  font-size: 14px;
+}
+
 /* --------------------------------------------------------------------*/
 /* ------------------------------- main -------------------------------*/
 /* --------------------------------------------------------------------*/
@@ -261,14 +328,79 @@ body {height: 100vh; overflow: hidden;}
 
 .profile {
   display: none;
-  border: 1px solid #f2f2f2;
+  border: 1px solid #eee;
   background: #fff;
   width: 100%;
+  gap: 8%;
+  padding: 4% 10%; box-sizing: border-box;
 }
 
 .profile.on {
-  display: block;
+  display: flex;
 }
+
+.profile .picture_wrap {
+  width: 35%;
+  height: 100%;
+  background: url(../img/1.jpg)no-repeat center center/cover;
+  border: 3px solid #333;
+}
+
+.profile .text_middle {
+  width: 10%;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profile .text_middle .props_title {
+  /* font-size: 18px; */
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile .text_middle .props_title::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 140px;
+  background: #ccc;
+  margin: 30px 0 10px;
+}
+
+.profile .text_middle .props {
+  margin: 0 auto 10%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  letter-spacing: -0.02rem;
+}
+
+.profile .text_middle .props .github {
+  display: block;
+  width: 96px;
+  height: 40px;
+  background: url(../img/github_icon.png) no-repeat center center/cover;
+}
+
+.profile .text_right {
+  flex: 1;
+  padding: 12% 1% 0 0;
+}
+
+.profile .text_right .txt01 {
+  line-height: 40px;
+  color: #555;
+}
+
+#text01, #text02 {display: none;}
+
+.profile
+
 
 /* --------------------------------------------------------------------*/
 /* ------------------------------ skill -------------------------------*/

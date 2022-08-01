@@ -1,5 +1,15 @@
-let inner = document.querySelectorAll(".inner")
-let viewMoveState = false //페이지 상or하 상태변수
+let inner = document.querySelectorAll(".inner"),
+  scrollBtn = document.querySelector(".scroll_btn"),
+  sideBtn = document.querySelector(".side_btn"),
+  designBtn = document.querySelectorAll(".design_btn"),
+  viewMoveState = false //페이지 상or하 상태변수
+
+function pageStateProps(state) {
+  let subTitle = querySelector(".sub_title")
+  // switch (state) {
+  //   case
+  // }
+}
 
 //main<->project 이동
 function fullpageScroll() {
@@ -10,13 +20,13 @@ function fullpageScroll() {
       if (i === 0 && !viewMoveState) {
         if (deltaY === 100) {
           pageScroll(1)
-          scrollBtnChange()
+          btnChange()
           viewMoveState = true
         }
       } else if (i === 1 && viewMoveState) {
         if (deltaY === -100) {
           pageScroll(0)
-          scrollBtnChange()
+          btnChange()
           viewMoveState = false
         }
       }
@@ -32,26 +42,24 @@ function pageScroll(direction) {
   })
 }
 
-let scrollBtn = document.querySelector(".scroll_btn")
-
 //스크롤 btn 이동
 function scrollBtnClick() {
   scrollBtn.addEventListener("click", () => {
     if (!viewMoveState) {
       pageScroll(1)
-      scrollBtnChange()
+      btnChange()
       viewMoveState = true
     } else if (viewMoveState) {
       pageScroll(0)
-      scrollBtnChange()
+      btnChange()
       viewMoveState = false
     }
   })
 }
 scrollBtnClick()
 
-//스크롤 btn style
-function scrollBtnChange() {
+//btn style
+function btnChange() {
   if (!viewMoveState) {
     scrollBtn.classList.add("bottom")
     scrollBtn.querySelector(".text").textContent = "Scroll main"
@@ -61,25 +69,52 @@ function scrollBtnChange() {
   }
 }
 
-// 스크롤 btn mouseover
-function scrollBtnMouseOver() {
-  let arrow = scrollBtn.querySelector(".arrow")
-  let circle = scrollBtn.querySelector(".circle")
-  scrollBtn.addEventListener("mouseenter", () => {
-    if (!viewMoveState) {
-      arrow.style.top = "-4px"
-    } else if (viewMoveState) {
-      arrow.style.top = "-34px"
+// btn mouseover
+function btnMouseOver() {
+  let scrollArrow = document.querySelector(".scroll_btn .arrow")
+  let sideArrow = document.querySelector(".side_btn .arrow")
+  let circles = document.querySelectorAll(".circle")
+
+  designBtn.forEach((btn) => {
+    btn.addEventListener("mouseenter", () => {
+      if (!viewMoveState && btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-4px"
+      } else if (viewMoveState && btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-34px"
+      }
+
+      if (btn.classList.contains("side_btn")) {
+        sideArrow.style.left = "-6px"
+      }
+    })
+
+    btn.addEventListener("mouseleave", () => {
+      if (btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-16px"
+      } else if (btn.classList.contains("side_btn")) {
+        sideArrow.style.left = "-18px"
+      }
+    })
+  })
+
+  circles.forEach((circle) => {
+    circle.addEventListener("mousemove", (e) => {
+      gsap.to(circle, 0.4, {
+        x: (e.offsetX / e.target.getBoundingClientRect().width) * 60 - 30,
+        y: (e.offsetY / e.target.getBoundingClientRect().height) * 60 - 30,
+        scale: 0.8,
+        onComplete: back,
+      })
+    })
+
+    function back() {
+      gsap.to(circle, 0.2, {
+        delay: 0.2,
+        x: 0,
+        y: 0,
+        scale: 1,
+      })
     }
   })
-  scrollBtn.addEventListener("mouseleave", () => {
-    arrow.style.top = "-16px"
-    circle.style.transform = `translate(0,0)`
-  })
-  circle.addEventListener("mousemove", (e) => {
-    circle.style.transform = `translate(${
-      (e.offsetX / e.target.getBoundingClientRect().width) * 60 - 30
-    }px,${(e.offsetY / e.target.getBoundingClientRect().height) * 60 - 30}px)`
-  })
 }
-scrollBtnMouseOver()
+btnMouseOver()
