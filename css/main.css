@@ -6,6 +6,10 @@ html, body {font-family: 'Noto Sans KR', sans-serif;}
 
 body {height: 100vh; overflow: hidden;}
 
+.outer_boder {
+  position: relative;
+  z-index: 3;
+}
 
 .outer_boder .top {
   position: fixed;
@@ -29,6 +33,8 @@ body {height: 100vh; overflow: hidden;}
   background: #fff;
   width: 100%;
   height: 70px;
+  transition: all 0.6s;
+
 }
 
 .outer_boder .right {
@@ -39,12 +45,50 @@ body {height: 100vh; overflow: hidden;}
   height: 100%;
 }
 
+.outer_boder .bottom.on {
+  height: 140px;
+}
+
+.outer_boder .bottom .info {
+  opacity: 0;
+  transition: all 0.6s;
+  color: #333;
+  position: absolute;
+  bottom: 70px;
+  right: 140px;
+}
+
+.outer_boder .bottom .info .info_email {
+  margin: 0 0 7px;
+  text-align: right;
+  color: #555;
+  font-size: 14px;
+}
+
+.outer_boder .bottom .info .info_github {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #555;
+  font-size: 14px;
+}
+
+.outer_boder .bottom .info .info_github img {
+  width: 80px;
+  height: 34px;
+}
+
+.outer_boder .bottom.on .info {
+  opacity: 1;
+}
+
 .title {
   position: fixed;
   top: 40px;
   left: 70px;
   font-size: 20px;
-  z-index: 2;
+  z-index: 10;
+  cursor: pointer;
 }
 
 .sub_title {
@@ -64,12 +108,15 @@ body {height: 100vh; overflow: hidden;}
 .top_inner, .bottom_inner {
   width: 100%; height: 100%;
   padding: 70px; box-sizing: border-box;
-  background: #20B5AE;
 }
 
 .top_inner {
   width: 100%;
   display: flex;
+}
+
+.bottom_inner {
+  background: #f2f2f2;
 }
 
 .skill_btn {right: 25%;}
@@ -78,7 +125,7 @@ body {height: 100vh; overflow: hidden;}
 .scroll_btn {
   position: fixed;
   bottom: 100px;
-  left: calc(50% + 80px);
+  left: calc(50% + 40px);
   transform: translateX(-50%);
   transition: all 0.6s;
   cursor: pointer;
@@ -162,13 +209,19 @@ body {height: 100vh; overflow: hidden;}
 .side_btn {
   position: absolute;
   top: calc(50% - 33px);
-  right: 30px;
-  transform: translateX(-50%);
   cursor: pointer;
   z-index: 10;
   display: flex;
   gap: 30px;
   align-items: center;
+}
+
+.side_btn.right {
+  right: 10px;
+}
+
+.side_btn.left {
+  left: 10px;
 }
 
 .side_btn .main_btn {
@@ -210,6 +263,7 @@ body {height: 100vh; overflow: hidden;}
   bottom: -1px;
   transform: rotate(135deg);
 }
+
 .side_btn .arrow::after {
   bottom: -5px;
   transform: rotate(-135deg);
@@ -220,20 +274,70 @@ body {height: 100vh; overflow: hidden;}
   font-size: 14px;
 }
 
+.side_btn.left .arrow {
+  left: 48px;
+}
+
+.side_btn.left .arrow::before,
+.side_btn.left .arrow::after {
+  left: 2px;
+}
+
+.side_btn.left .arrow::before {
+  bottom: -1px;
+  transform: rotate(-135deg);
+}
+
+.side_btn.left .arrow::after {
+  bottom: -5px;
+  transform: rotate(135deg);
+}
+
 /* --------------------------------------------------------------------*/
 /* ------------------------------- main -------------------------------*/
 /* --------------------------------------------------------------------*/
 
 .main {
-  display: none;
+  display: block;
+  width: calc(100% - 140px);
+  height: calc(100% - 140px);
+  position: absolute;
+  top: 70px; left: 70px;
+  z-index: 1;
+  opacity: 0;
+  transition: all 1s ease-out;
 }
 
 .main.on {
-  display: block;
+  z-index: 3;
+  opacity: 1;
 }
 
-.left_area {}
-.right_area {}
+.back_slide {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.left_area, .right_area {
+  height: 100%;
+}
+
+.left_area {
+  width: 0;
+  background: url(../img/3.jpg);
+}
+
+.middle_area {
+  width: 0;
+  background: #fff;
+}
+
+.right_area {
+  flex: 1;
+  background: #20B5AE;
+}
 
 .center_title {
   position: absolute;
@@ -326,23 +430,30 @@ body {height: 100vh; overflow: hidden;}
 /* ----------------------------- profile ------------------------------*/
 /* --------------------------------------------------------------------*/
 
-.profile {
-  display: none;
+.profile, .skill {
+  display: flex;
   border: 1px solid #eee;
   background: #fff;
-  width: 100%;
   gap: 8%;
   padding: 4% 10%; box-sizing: border-box;
+  width: calc(100% - 140px);
+  height: calc(100% - 140px);
+  position: absolute;
+  top: 70px; left: 70px;
+  transition: all 1s ease-in-out;
+  opacity: 0;
+  z-index: 1;
 }
 
-.profile.on {
-  display: flex;
+.profile.on, .skill.on {
+  opacity: 1;
+  z-index: 3;
 }
 
 .profile .picture_wrap {
   width: 35%;
   height: 100%;
-  background: url(../img/1.jpg)no-repeat center center/cover;
+  background: url(../img/3.jpg)no-repeat -300px center/cover;
   border: 3px solid #333;
 }
 
@@ -356,7 +467,6 @@ body {height: 100vh; overflow: hidden;}
 }
 
 .profile .text_middle .props_title {
-  /* font-size: 18px; */
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -399,17 +509,75 @@ body {height: 100vh; overflow: hidden;}
 
 #text01, #text02 {display: none;}
 
-.profile
+.profile .home_btn,
+.skill .home_btn {
+  position: absolute;
+  top: 8%; right: 4%;
+  cursor: pointer;
+  width: 120px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.skill .home_btn::before,
+.skill .home_btn::after,
+.profile .home_btn::before,
+.profile .home_btn::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background: #666;
+  transition: left 0.6s;
+}
+
+.skill .home_btn::before,
+.profile .home_btn::before {
+  width: 10px;
+  height: 1px;
+  transform: rotate(-45deg);
+  left: 0;
+  bottom: -1px;
+}
+
+.skill .home_btn::after,
+.profile .home_btn::after {
+  width: 100%;
+  height: 1px;
+  bottom: -5px;
+  left: 0;
+}
+
+.skill .home_btn:hover::before,
+.skill .home_btn:hover::after,
+.profile .home_btn:hover::before,
+.profile .home_btn:hover::after {
+  left: -20px;
+}
 
 
 /* --------------------------------------------------------------------*/
 /* ------------------------------ skill -------------------------------*/
 /* --------------------------------------------------------------------*/
 
-.skill {
-  display: none;
+
+
+
+
+/* --------------------------------------------------------------------*/
+/* ----------------------------- project ------------------------------*/
+/* --------------------------------------------------------------------*/
+
+.bottom_inner .project_wrap {
+  display: flex;
+  width: 100%; height: 100%;
+  padding: 0 0 70px; box-sizing: border-box;
+  flex-wrap: wrap;
+
 }
 
-.skill.on {
-  display: block;
+.project_wrap .project {
+  width: 33.333333%;
+  height: 50%;
+  border: 1px solid #333; box-sizing: border-box;
+  cursor: pointer;
 }
