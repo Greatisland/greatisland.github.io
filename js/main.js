@@ -95,10 +95,10 @@ function btnChange() {
 
 // btn mouseover
 function btnMouseOver() {
-  let scrollArrow = document.querySelector(".scroll_btn .arrow")
-  let sideArrowRight = document.querySelector(".side_btn.right .arrow")
-  let sideArrowLeft = document.querySelector(".side_btn.left .arrow")
-  let circles = document.querySelectorAll(".circle")
+  let scrollArrow = document.querySelector(".scroll_btn .arrow"),
+    sideArrowRight = document.querySelector(".side_btn.right .arrow"),
+    sideArrowLeft = document.querySelector(".side_btn.left .arrow"),
+    circles = document.querySelectorAll(".circle")
 
   designBtn.forEach((btn) => {
     btn.addEventListener("mouseenter", () => {
