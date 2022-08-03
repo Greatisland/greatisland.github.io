@@ -630,7 +630,7 @@ body {
   background: url(../img/project_portfolio.png)no-repeat top center/cover;
 }
 .project.project02 {
-  background: url(../img/IKEA02.png)no-repeat top center/cover;
+  background: url(../img/project_ikea.png)no-repeat top center/cover;
 }
 .project.project03 {
   background: url(../img/project_seiko.png)no-repeat top center/cover;
@@ -649,7 +649,7 @@ body {
 .detali_page .project_page {
   display: none;
   width: 100%;
-  height: 200%;
+  min-height: 200%;
   position: absolute;
   background: #fff;
   top: 0; left: 0;
@@ -699,6 +699,7 @@ body {
   background: #fff;
   width: 100%;
   height: 70px;
+  border-bottom: 1px solid #eee;
 }
 
 .project_page .main_img {
@@ -709,12 +710,15 @@ body {
 }
 
 .project_page01 .main_img {background: url(../img/project_portfolio.png) no-repeat center center/cover;}
-.project_page02 .main_img {background: url(../img/main_ikea.png) no-repeat top center/cover;}
+.project_page02 .main_img {background: url(../img/project_ikea.png) no-repeat top center/cover;}
+.project_page03 .main_img {background: url(../img/detail_seiko01.png) no-repeat top center/cover;}
 
 .project_page .info_box {
   display: flex;
   justify-content: center;
   padding: 0 100px;
+  gap: 50px;
+  margin: 0 0 200px;
 }
 
 .project_page .info_box .con01 {
@@ -725,6 +729,7 @@ body {
 .project_page .info_box .con01 .project_desc {
   font-size: 14px;
   margin: 0 0 10px;
+  font-weight: 300;
 }
 
 .project_page .info_box .con01 .project_title {
@@ -793,9 +798,6 @@ body {
   border-left: 6px solid #fff;
 }
 
-.project_page .info_box .con01 .btn_box .github {
-}
-
 .project_page .info_box .con01 .btn_box .github img {
   display: block;
   width: 64;
@@ -811,8 +813,39 @@ body {
 }
 
 .project_page .info_box .con03 {
-  width: 35%;
-  line-height: 30px;
+  width: 30%;
+  font-weight: 300;
+  line-height: 40px;
   display: flex;
   align-items: center;
+}
+
+.project_page .con_detail {
+  display: flex;
+  gap: 100px;
+  justify-content: center;
+  margin: 0 0 200px 0;
+}
+
+.project_page .con_detail .text {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.project_page .con_detail .text .name {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.project_page .con_detail .text .desc {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 40px;
+}
+
+.project_page .con_detail img {
+  width: 40%;
 }
