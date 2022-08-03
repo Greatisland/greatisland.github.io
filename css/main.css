@@ -127,7 +127,7 @@ body {
 }
 
 .skill_btn {right: 25%;}
-.skill_btn p {letter-spacing: 1rem;}
+.skill_btn p {letter-spacing: 1rem!important;}
 
 .scroll_btn {
   position: fixed;
@@ -325,6 +325,7 @@ body {
   height: 100%;
   overflow: hidden;
   display: flex;
+  opacity: 0;
 }
 
 .left_area, .right_area {
@@ -332,8 +333,8 @@ body {
 }
 
 .left_area {
-  width: 0;
-  background: url(../img/3.jpg);
+  width: 50%;
+  background: url(../img/3.jpg)no-repeat top 50% left/cover fixed;
 }
 
 .middle_area {
@@ -346,29 +347,34 @@ body {
   background: var(--main_color);
 }
 
-.center_title {
+.center_text {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.center_title .tiping_title {
-  font-size: 40px;
-  color: #fff;
+.center_text .text_wrap {
+  overflow: hidden;
 }
 
-.center_title .tiping_title_top {
+.center_text .center_title {
+  font-size: 40px;
+  color: #333;
+  transform: translateY(50px);
+}
+
+.center_text .center_title_top {
   letter-spacing: 0.5rem;
   font-weight: 700;
 }
 
-.center_title .tiping_title_bottom {
+.center_text .center_title_bottom {
   letter-spacing: 1.2rem;
   font-weight: 700;
 }
 
 
-.center_title .line_middle {
+.center_text .line_middle {
   display: block;
   margin: 10px 0;
   width: 220px;
@@ -382,6 +388,8 @@ body {
   top: calc(50% - 40px);
   cursor: pointer;
   overflow: hidden;
+  transform: translateY(50px);
+  opacity: 0;
 }
 
 @keyframes page_btn_hover {
@@ -399,32 +407,30 @@ body {
   }
 }
 
-.page_btn:hover::after {
+.page_btn:hover .line02 {
  animation: page_btn_hover 1s ease-out;
 }
 
 .page_btn p {
   width: 100%;
-  color: #fff;
+  color: #333;
   text-align: center;
   letter-spacing: 0.5rem;
 }
 
-.page_btn::before {
-  content: "";
+.page_btn .line01 {
   display: block;
   width: 100px;
   height: 1px;
-  background: #fff;
+  background: #333;
   margin: 0 0 12px;
 }
 
-.page_btn::after {
-  content: "";
+.page_btn .line02 {
   display: block;
   width: 1px;
   height: 100px;
-  background: #fff;
+  background: #333;
   position: absolute;
   top: 50px;
   left: 50%;
@@ -460,8 +466,8 @@ body {
 .profile .picture_wrap {
   width: 35%;
   height: 100%;
-  background: url(../img/3.jpg)no-repeat -300px center/cover;
-  border: 3px solid var(--main_color);
+  background: url(../img/2.jpg)no-repeat center center/cover;
+  border: 1px solid #000;
 }
 
 .profile .text_middle {
@@ -620,6 +626,9 @@ body {
   color: #333;
 }
 
+.project.project01 {
+  background: url(../img/project_portfolio.png)no-repeat top center/cover;
+}
 .project.project02 {
   background: url(../img/IKEA02.png)no-repeat top center/cover;
 }
@@ -699,6 +708,7 @@ body {
   margin: 0 0 70px;
 }
 
+.project_page01 .main_img {background: url(../img/project_portfolio.png) no-repeat center center/cover;}
 .project_page02 .main_img {background: url(../img/main_ikea.png) no-repeat top center/cover;}
 
 .project_page .info_box {
@@ -733,12 +743,18 @@ body {
 
 .project_page .info_box .con01 .btn_box {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 20px;
 }
 
 .project_page .info_box .con01 .btn_box .link {
   position: relative;
+  background: #333;
+  border-radius: 8px;
+  padding: 6px 28px 6px 20px;
+  color: #fff;
+  transition: all 0.6s;
 }
 
 .project_page .info_box .con01 .btn_box .link::before,
@@ -747,21 +763,34 @@ body {
   display: block;
   width: 0;
   height: 0;
-  border-top: 15px solid transparent;
-  border-left: 15px solid #000;
-  border-bottom: 15px solid transparent;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #fff;
+  border-bottom: 10px solid transparent;
   position: absolute;
-  top: 50%;
-  right: 0px;
+  top: 53%;
+  right: 5px;
   transform: translateY(-50%);
   transition: all 0.6s;
 }
 
 .project_page .info_box .con01 .btn_box .link::after {
-  right: 6px;
-  border-top: 15px solid transparent;
-  border-left: 9px solid #fff;
-  border-bottom: 15px solid transparent;
+  right: 9px;
+  border-top: 10px solid transparent;
+  border-left: 6px solid #333;
+  border-bottom: 10px solid transparent;
+}
+
+.project_page .info_box .con01 .btn_box .link:hover {
+  color: #333;
+  background: #fff;
+}
+
+.project_page .info_box .con01 .btn_box .link:hover::before {
+  border-left: 10px solid #333;
+}
+
+.project_page .info_box .con01 .btn_box .link:hover::after {
+  border-left: 6px solid #fff;
 }
 
 .project_page .info_box .con01 .btn_box .github {
