@@ -4,8 +4,12 @@ let inner = document.querySelectorAll(".inner"),
   sideBtn = document.querySelectorAll(".side_btn"),
   pageBtn = document.querySelectorAll(".page_btn"),
   designBtn = document.querySelectorAll(".design_btn"),
+  projectLink = document.querySelectorAll(".project_wrap .project"),
+  projectPage = document.querySelectorAll(".detali_page .project_page"),
+  exitBtn = document.querySelector(".detali_page .exit"),
   viewMoveState = false, //페이지 상or하 상태변수
-  gsapMoving = false //main_page 애니메이션 상태변수
+  gsapMoving = false, //main_page 애니메이션 상태변수
+  isProjectOpen = false //project_page 상태변수
 
 // sub_title 변화
 function subTitleFunc(title) {
@@ -54,7 +58,7 @@ fullpageScroll()
 
 //스크롤 이동 & footer 변화
 function pageScroll(direction) {
-  let borderBottom = document.querySelector(".outer_boder .bottom")
+  let borderBottom = document.querySelector(".outer_border .bottom")
 
   btnChange()
   gsap.to(window, 0.7, {
@@ -71,6 +75,7 @@ function pageScroll(direction) {
 //스크롤 btn click
 function scrollBtnClick() {
   scrollBtn.addEventListener("click", () => {
+    if (isProjectOpen) return
     if (!viewMoveState) {
       pageScroll(1)
       subTitleFunc("Project")
@@ -84,6 +89,10 @@ scrollBtnClick()
 
 //btn style
 function btnChange() {
+  // if (isProjectOpen) {
+  //   scrollBtn.classList.add("bottom")
+  //   scrollBtn.querySelector(".text").textContent = "Scroll"
+  // }
   if (!viewMoveState) {
     scrollBtn.classList.add("bottom")
     scrollBtn.querySelector(".text").textContent = "Scroll main"
@@ -151,6 +160,9 @@ function btnHome() {
   let btns = document.querySelectorAll(".home_btn")
   btns.forEach((btn) => {
     btn.addEventListener("click", () => {
+      if (isProjectOpen) {
+        projectExit()
+      }
       gsapMoving = false
       mainReturn()
       pages.forEach((page) => {
@@ -234,3 +246,44 @@ function mainReturn() {
   let middleSlide = document.querySelector(".back_slide .middle_area")
   middleSlide.style.width = "0px"
 }
+
+function pageOpen(title) {
+  let subTitle = document.querySelector(".sub_title")
+  if (!isProjectOpen) {
+    isProjectOpen = true
+    subTitle.textContent = title
+    document.body.style.overflow = "auto"
+    window.scrollTo(0, 0)
+    btnChange()
+    viewMoveState = !viewMoveState
+  } else if (isProjectOpen) {
+    isProjectOpen = false
+    document.body.style.overflow = "hidden"
+    subTitleFunc()
+    window.scrollTo(0, inner[1].offsetTop)
+    btnChange()
+    viewMoveState = !viewMoveState
+  }
+}
+
+projectLink.forEach((link, i) => {
+  link.addEventListener("click", () => {
+    let title = projectPage[i].dataset.title
+    projectPage[i].classList.add("on")
+    exitBtn.classList.add("on")
+    pageOpen(title)
+  })
+})
+
+function projectExit() {
+  projectPage.forEach((page) => {
+    page.classList.remove("on")
+    exitBtn.classList.remove("on")
+    pageOpen()
+  })
+}
+
+exitBtn.addEventListener("click", () => {
+  projectExit()
+  subTitleFunc("Project")
+})

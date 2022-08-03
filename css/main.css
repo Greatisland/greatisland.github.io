@@ -4,14 +4,21 @@ ul, ol {list-style: none;}
 html, body {font-family: 'Noto Sans KR', sans-serif;}
 .eng {font-family: 'Montserrat', sans-serif;}
 
-body {height: 100vh; overflow: hidden;}
+body {
+  height: 100vh; 
+  overflow: hidden;
+}
 
-.outer_boder {
+:root {
+  --main_color: #20B5AE;
+}
+
+.outer_border {
   position: relative;
   z-index: 3;
 }
 
-.outer_boder .top {
+.outer_border .top {
   position: fixed;
   top: 0; left: 0;
   background: #fff;
@@ -19,7 +26,7 @@ body {height: 100vh; overflow: hidden;}
   height: 70px;
 }
 
-.outer_boder .left {
+.outer_border .left {
   position: fixed;
   top: 0; left: 0;
   background: #fff;
@@ -27,7 +34,7 @@ body {height: 100vh; overflow: hidden;}
   height: 100%;
 }
 
-.outer_boder .bottom {
+.outer_border .bottom {
   position: fixed;
   bottom: 0; left: 0;
   background: #fff;
@@ -37,7 +44,7 @@ body {height: 100vh; overflow: hidden;}
 
 }
 
-.outer_boder .right {
+.outer_border .right {
   position: fixed;
   top: 0; right: 0;
   background: #fff;
@@ -45,11 +52,11 @@ body {height: 100vh; overflow: hidden;}
   height: 100%;
 }
 
-.outer_boder .bottom.on {
+.outer_border .bottom.on {
   height: 140px;
 }
 
-.outer_boder .bottom .info {
+.outer_border .bottom .info {
   opacity: 0;
   transition: all 0.6s;
   color: #333;
@@ -58,14 +65,14 @@ body {height: 100vh; overflow: hidden;}
   right: 140px;
 }
 
-.outer_boder .bottom .info .info_email {
+.outer_border .bottom .info .info_email {
   margin: 0 0 7px;
   text-align: right;
   color: #555;
   font-size: 14px;
 }
 
-.outer_boder .bottom .info .info_github {
+.outer_border .bottom .info .info_github {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -73,12 +80,12 @@ body {height: 100vh; overflow: hidden;}
   font-size: 14px;
 }
 
-.outer_boder .bottom .info .info_github img {
+.outer_border .bottom .info .info_github img {
   width: 80px;
   height: 34px;
 }
 
-.outer_boder .bottom.on .info {
+.outer_border .bottom.on .info {
   opacity: 1;
 }
 
@@ -87,7 +94,7 @@ body {height: 100vh; overflow: hidden;}
   top: 40px;
   left: 70px;
   font-size: 20px;
-  z-index: 10;
+  z-index: 5;
   cursor: pointer;
 }
 
@@ -116,7 +123,7 @@ body {height: 100vh; overflow: hidden;}
 }
 
 .bottom_inner {
-  background: #f2f2f2;
+  position: relative;
 }
 
 .skill_btn {right: 25%;}
@@ -129,7 +136,7 @@ body {height: 100vh; overflow: hidden;}
   transform: translateX(-50%);
   transition: all 0.6s;
   cursor: pointer;
-  z-index: 10;
+  z-index: 4;
   display: flex;
   gap: 10px;
   align-items: center;
@@ -210,7 +217,7 @@ body {height: 100vh; overflow: hidden;}
   position: absolute;
   top: calc(50% - 33px);
   cursor: pointer;
-  z-index: 10;
+  z-index: 3;
   display: flex;
   gap: 30px;
   align-items: center;
@@ -309,7 +316,7 @@ body {height: 100vh; overflow: hidden;}
 }
 
 .main.on {
-  z-index: 3;
+  z-index: 2;
   opacity: 1;
 }
 
@@ -336,7 +343,7 @@ body {height: 100vh; overflow: hidden;}
 
 .right_area {
   flex: 1;
-  background: #20B5AE;
+  background: var(--main_color);
 }
 
 .center_title {
@@ -447,14 +454,14 @@ body {height: 100vh; overflow: hidden;}
 
 .profile.on, .skill.on {
   opacity: 1;
-  z-index: 3;
+  z-index: 2;
 }
 
 .profile .picture_wrap {
   width: 35%;
   height: 100%;
   background: url(../img/3.jpg)no-repeat -300px center/cover;
-  border: 3px solid #333;
+  border: 3px solid var(--main_color);
 }
 
 .profile .text_middle {
@@ -572,12 +579,211 @@ body {height: 100vh; overflow: hidden;}
   width: 100%; height: 100%;
   padding: 0 0 70px; box-sizing: border-box;
   flex-wrap: wrap;
-
 }
 
 .project_wrap .project {
   width: 33.333333%;
   height: 50%;
-  border: 1px solid #333; box-sizing: border-box;
+  border: 10px solid #fff; box-sizing: border-box;
   cursor: pointer;
+  background: var(--main_color);
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.4s;
+  padding: 20px; box-sizing: border-box;
+}
+
+.text_box {
+  display: flex;
+  height: 70px;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 10px 20px; box-sizing: border-box;
+  background: #fff;
+}
+
+.project:hover {
+  border: 10px solid var(--main_color); box-sizing: border-box;
+}
+
+.project .project_title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+.project .project_desc {
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: -0.04rem;
+  color: #333;
+}
+
+.project.project02 {
+  background: url(../img/IKEA02.png)no-repeat top center/cover;
+}
+.project.project03 {
+  background: url(../img/project_seiko.png)no-repeat top center/cover;
+}
+.project.project04 {
+  background: url(../img/project_ikea_react.png)no-repeat top center/cover;
+}
+.project.project05 {
+  background: url(../img/project_primera.png)no-repeat top center/cover;
+}
+
+/* --------------------------------------------------------------------*/
+/* --------------------------- detali_page ----------------------------*/
+/* --------------------------------------------------------------------*/
+
+.detali_page .project_page {
+  display: none;
+  width: 100%;
+  height: 200%;
+  position: absolute;
+  background: #fff;
+  top: 0; left: 0;
+  padding: 70px 70px 0 70px; box-sizing: border-box;
+  z-index: 3;
+}
+
+.detali_page .project_page.on {
+  display: block;
+}
+
+.detali_page .exit {
+  display: none;
+  position: fixed;
+  top: 10px; right: 70px;
+  width: 50px; height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.detali_page .exit.on {
+  display: block;
+}
+
+.detali_page .exit:hover {background: #f2f2f2;}
+
+.detali_page .exit::before,
+.detali_page .exit::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background: #333;
+  top: 25px;
+  left: 15px;
+}
+
+.detali_page .exit::before {transform: rotate(45deg);}
+.detali_page .exit::after {transform: rotate(135deg);}
+
+.detali_page .top {
+  position: fixed;
+  top: 0; left: 0;
+  background: #fff;
+  width: 100%;
+  height: 70px;
+}
+
+.project_page .main_img {
+  width: 100%;
+  background: #333;
+  height: 45vh;
+  margin: 0 0 70px;
+}
+
+.project_page02 .main_img {background: url(../img/main_ikea.png) no-repeat top center/cover;}
+
+.project_page .info_box {
+  display: flex;
+  justify-content: center;
+  padding: 0 100px;
+}
+
+.project_page .info_box .con01 {
+  margin: 0 50px 0 0;
+  text-align: center;
+}
+
+.project_page .info_box .con01 .project_desc {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+
+.project_page .info_box .con01 .project_title {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.project_page .info_box .con01 .project_title::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 100px;
+  margin: 30px auto;
+  background: #ccc;
+}
+
+.project_page .info_box .con01 .btn_box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.project_page .info_box .con01 .btn_box .link {
+  position: relative;
+}
+
+.project_page .info_box .con01 .btn_box .link::before,
+.project_page .info_box .con01 .btn_box .link::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-left: 15px solid #000;
+  border-bottom: 15px solid transparent;
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translateY(-50%);
+  transition: all 0.6s;
+}
+
+.project_page .info_box .con01 .btn_box .link::after {
+  right: 6px;
+  border-top: 15px solid transparent;
+  border-left: 9px solid #fff;
+  border-bottom: 15px solid transparent;
+}
+
+.project_page .info_box .con01 .btn_box .github {
+}
+
+.project_page .info_box .con01 .btn_box .github img {
+  display: block;
+  width: 64;
+  height: 30px;
+}
+
+.project_page .info_box .con02 {
+  margin: 0 150px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.project_page .info_box .con03 {
+  width: 35%;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
 }
