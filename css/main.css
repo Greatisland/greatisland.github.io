@@ -624,10 +624,16 @@ body {
   border: 10px solid #fff; box-sizing: border-box;
   cursor: pointer;
   background: var(--main_color);
+  transition: all 0.4s;
+}
+
+.project .filter {
+  padding: 20px; box-sizing: border-box;
   display: flex;
   align-items: flex-end;
+  width: 100%; height: 100%;
+  backdrop-filter: grayscale(70%);
   transition: all 0.4s;
-  padding: 20px; box-sizing: border-box;
 }
 
 .text_box {
@@ -637,24 +643,28 @@ body {
   justify-content: flex-end;
   gap: 5px;
   padding: 10px 20px; box-sizing: border-box;
-  background: #fff;
+  background: #20B5AE;
 }
 
 .project:hover {
   border: 10px solid var(--main_color); box-sizing: border-box;
 }
 
+.project:hover .filter {
+  backdrop-filter: grayscale(0);
+}
+
 .project .project_title {
   font-size: 20px;
   font-weight: 700;
-  color: #333;
+  color: #fff;
 }
 
 .project .project_desc {
   font-weight: 400;
-  font-size: 14px;
-  letter-spacing: -0.04rem;
-  color: #333;
+  font-size: 15px;
+  letter-spacing: 0.02rem;
+  color: #fff;
 }
 
 .project.project01 {
@@ -731,6 +741,7 @@ body {
   width: 100%;
   height: 70px;
   border-bottom: 1px solid #eee;
+  z-index: 2;
 }
 
 .project_page .main_img {

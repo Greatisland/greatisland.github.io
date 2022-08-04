@@ -260,14 +260,9 @@ function mainMouseSlide() {
       tl.to(moveSlide, 0.8, {
         width: 0,
       })
-      tl.to(
-        middleSlide,
-        0.8,
-        {
+      tl.to(middleSlide, 0.8, {
           width: '100%',
-        },
-        '<'
-      )
+      },'<')
       main.classList.remove('on')
       if (i === 0) {
         profile.classList.add('on')
