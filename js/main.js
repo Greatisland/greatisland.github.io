@@ -232,6 +232,7 @@ function btnSide() {
     btn.addEventListener('click', () => {
       if (i === 0) {
         skill.classList.add('on')
+        skillAnimation()
         profile.classList.remove('on')
       } else if (i === 1) {
         skill.classList.remove('on')
@@ -272,6 +273,7 @@ function mainMouseSlide() {
         profile.classList.add('on')
       } else if (i === 1) {
         skill.classList.add('on')
+        skillAnimation()
       }
       subTitleFunc()
     })
@@ -336,3 +338,22 @@ exitBtn.addEventListener('click', () => {
   projectExit()
   subTitleFunc('Project')
 })
+
+//skill page 애니메이션
+function skillAnimation() {
+  let block01 = document.querySelectorAll('.skill_html .block'),
+  block02 = document.querySelectorAll('.skill_css .block'),
+  block03 = document.querySelectorAll('.skill_javascript .block'),
+  block04 = document.querySelectorAll('.skill_react .block'),
+  block05 = document.querySelectorAll('.skill_jquery .block'),
+  block06 = document.querySelectorAll('.skill_redux .block')
+  blocks = [block01, block02, block03, block04, block05, block06]
+  blocks.forEach((blockArray) => {
+    blockArray.forEach((block, i) => {
+      gsap.to(block, 0.4, {
+        delay: i * 0.2,
+        opacity: 1
+      })
+    })
+  })
+}
