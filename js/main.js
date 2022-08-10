@@ -345,7 +345,7 @@ function skillAnimation() {
 
   block01.forEach((block,i) => gsapFunc(block, i))
   block02.forEach((block,i) => gsapFunc(block, i))
-  block03.forEach((block,i) => {if(i < 15) gsapFunc(block, i)})
+  block03.forEach((block,i) => gsapFunc(block, i))
   block04.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
   block05.forEach((block,i) => {if(i < 14) gsapFunc(block, i)})
   block06.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
