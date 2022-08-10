@@ -341,18 +341,18 @@ function skillAnimation() {
   block03 = document.querySelectorAll('.skill_javascript .block'),
   block04 = document.querySelectorAll('.skill_react .block'),
   block05 = document.querySelectorAll('.skill_jquery .block'),
-  block06 = document.querySelectorAll('.skill_redux .block'),
-  ti = gsap.timeline()
-  block01.forEach((block,i) => gsapFunc(block, i, 0))
-  block02.forEach((block,i) => gsapFunc(block, i, 1))
-  block03.forEach((block,i) => {if(i < 15) gsapFunc(block, i, 2)})
-  block04.forEach((block,i) => {if(i < 13) gsapFunc(block, i, 3)})
-  block05.forEach((block,i) => {if(i < 14) gsapFunc(block, i, 4)})
-  block06.forEach((block,i) => {if(i < 13) gsapFunc(block, i, 5)})
+  block06 = document.querySelectorAll('.skill_redux .block')
 
-  function gsapFunc(block, i, del) {
+  block01.forEach((block,i) => gsapFunc(block, i))
+  block02.forEach((block,i) => gsapFunc(block, i))
+  block03.forEach((block,i) => {if(i < 15) gsapFunc(block, i)})
+  block04.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
+  block05.forEach((block,i) => {if(i < 14) gsapFunc(block, i)})
+  block06.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
+
+  function gsapFunc(block, i) {
     gsap.to(block, 0.1, {
-      delay: i * 0.15 + del,
+      delay: i * 0.15,
       background: '#20B5AE',
       borderColor: '#20B5AE'
     })
