@@ -515,6 +515,10 @@ body {
   padding: 12% 1% 0 0;
 }
 
+.profile .text_right h2 {
+  margin: 0 0 10px;
+}
+
 .profile .text_right .txt01 {
   line-height: 40px;
   color: #555;
