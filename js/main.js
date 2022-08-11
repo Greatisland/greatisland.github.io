@@ -108,7 +108,6 @@ fullpageScroll()
 //스크롤 이동 & footer 변화
 function pageScroll(direction) {
   let borderBottom = document.querySelector('.outer_border .bottom')
-
   btnChange()
   gsap.to(window, 0.7, {
     scrollTo: inner[direction].offsetTop,
@@ -151,12 +150,9 @@ scrollBtnClick()
 
 //btn style
 function btnChange() {
-  if(isProjectOpen) {
-    // if(window.scrollY
-  }
   if (!viewMoveState) {
     scrollBtn.classList.add('bottom')
-    scrollBtn.querySelector('.text').textContent = 'Scroll main'
+    scrollBtn.querySelector('.text').textContent = 'Scroll Main'
   } else if (viewMoveState) {
     scrollBtn.classList.remove('bottom')
     scrollBtn.querySelector('.text').textContent = 'Scroll Project'

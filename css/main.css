@@ -59,30 +59,14 @@ body {
 .outer_border .bottom .info {
   opacity: 0;
   transition: all 0.6s;
-  color: #333;
   position: absolute;
   bottom: 70px;
   right: 140px;
-}
-
-.outer_border .bottom .info .info_email {
-  margin: 0 0 7px;
-  text-align: right;
-  color: #555;
   font-size: 14px;
 }
 
-.outer_border .bottom .info .info_github {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #555;
-  font-size: 14px;
-}
-
-.outer_border .bottom .info .info_github img {
-  width: 80px;
-  height: 34px;
+.outer_border .bottom .info_notice {
+  margin: 0 0 10px;
 }
 
 .outer_border .bottom.on .info {
@@ -467,7 +451,7 @@ body {
   width: 35%;
   height: 100%;
   background: url(../img/2.jpg)no-repeat center center/cover;
-  border: 1px solid #000;
+  border-radius: 200px;
 }
 
 .profile .text_middle {
@@ -600,6 +584,7 @@ body {
 }
 
 .skill_wrap .graph .name {
+  font-weight: 700;
   letter-spacing: 0.2rem;
 }
 
