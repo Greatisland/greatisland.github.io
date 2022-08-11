@@ -124,7 +124,20 @@ function pageScroll(direction) {
 //스크롤 btn click
 function scrollBtnClick() {
   scrollBtn.addEventListener('click', () => {
-    if (isProjectOpen) return
+    if (isProjectOpen) {
+      if(window.scrollY >= document.querySelector('.project_page.on').scrollHeight/2){
+        gsap.to(window, 0.6, {
+          scrollTo: 0
+        })
+        return false
+      }
+      gsap.to(window, 0.6, {
+        scrollTo: {
+          y: window.scrollY + 1000
+        }
+      })  
+      return false
+    }
     if (!viewMoveState) {
       pageScroll(1)
       subTitleFunc('Project')
@@ -138,6 +151,9 @@ scrollBtnClick()
 
 //btn style
 function btnChange() {
+  if(isProjectOpen) {
+    // if(window.scrollY
+  }
   if (!viewMoveState) {
     scrollBtn.classList.add('bottom')
     scrollBtn.querySelector('.text').textContent = 'Scroll main'
