@@ -826,6 +826,42 @@ body {
   border-left: 6px solid #fff;
 }
 
+.project_page .info_box .con01 .btn_box .github {
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid #000;
+  padding: 2px 42px;
+  color: #fff;
+  transition: all 0.6s;
+}
+
+.project_page .info_box .con01 .btn_box .github:hover {
+  border: 1px solid #fff;
+}
+
+.project_page .info_box .con01 .btn_box .github::before,
+.project_page .info_box .con01 .btn_box .github::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 10px solid #000;
+  border-bottom: 10px solid transparent;
+  position: absolute;
+  top: 53%;
+  right: 5px;
+  transform: translateY(-50%);
+  transition: all 0.6s;
+}
+
+.project_page .info_box .con01 .btn_box .github::after {
+  right: 9px;
+  border-top: 10px solid transparent;
+  border-left: 6px solid #fff;
+  border-bottom: 10px solid transparent;
+}
+
 .project_page .info_box .con01 .btn_box .github img {
   display: block;
   width: 64;
