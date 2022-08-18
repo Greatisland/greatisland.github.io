@@ -12,12 +12,12 @@ let inner = document.querySelectorAll('.inner'),
   isProjectOpen = false //project_page 상태변수
 
 //사이트 첫 진입 시 애니메이션 구동
-document.addEventListener('DOMContentLoaded', () => {
+function startFunc() {
   let backSlide = document.querySelector('.back_slide'),
-    centerTitle = document.querySelectorAll('.center_title'),
-    line = document.querySelectorAll('.page_btn .line'),
-    p = document.querySelectorAll('.page_btn p')
-    ti = gsap.timeline()
+  centerTitle = document.querySelectorAll('.center_title'),
+  line = document.querySelectorAll('.page_btn .line'),
+  p = document.querySelectorAll('.page_btn p')
+  ti = gsap.timeline()
 
   ti.to(centerTitle[0], 0.6, {
     y: 0,
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   line.forEach((ele) => {
     ti.to(ele, 0.6, {
         background: '#fff',
-      }, '<')
+    }, '<')
   })
 
   centerTitle.forEach((ele) => {
@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
       color: '#fff'
     }, '<')
   })
-})
+}
+startFunc()
 
 // sub_title 변화
 function subTitleFunc(title) {

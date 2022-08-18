@@ -605,15 +605,16 @@ body {
   width: 100%; height: 100%;
   padding: 0 0 70px; box-sizing: border-box;
   flex-wrap: wrap;
+  background: #f6f6f6;
 }
 
 .project_wrap .project {
   width: 33.333333%;
   height: 50%;
-  border: 2px solid #fff; box-sizing: border-box;
+  border: 40px solid #f6f6f6; box-sizing: border-box;
   cursor: pointer;
   background: var(--main_color);
-  transition: all 0.4s;
+  transition: all 0.4s ease-out;
 }
 
 .project .filter {
@@ -634,8 +635,12 @@ body {
   background: #20B5AE;
 }
 
+.project:hover {
+  border-width: 30px;
+}
+
 .project:hover .filter {
-  backdrop-filter: blur(3px);
+  /* backdrop-filter: blur(2px); */
 }
 
 .project .project_title {
