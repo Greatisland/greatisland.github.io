@@ -1,205 +1,259 @@
-let inner = document.querySelectorAll('.inner'),
-  pages = document.querySelectorAll('.page'),
-  scrollBtn = document.querySelector('.scroll_btn'),
-  sideBtn = document.querySelectorAll('.side_btn'),
-  pageBtn = document.querySelectorAll('.page_btn'),
-  designBtn = document.querySelectorAll('.design_btn'),
-  projectLink = document.querySelectorAll('.project_wrap .project'),
-  projectPage = document.querySelectorAll('.detali_page .project_page'),
-  exitBtn = document.querySelector('.detali_page .exit'),
+let inner = document.querySelectorAll(".inner"),
+  pages = document.querySelectorAll(".page"),
+  scrollBtn = document.querySelector(".scroll_btn"),
+  sideBtn = document.querySelectorAll(".side_btn"),
+  pageBtn = document.querySelectorAll(".page_btn"),
+  designBtn = document.querySelectorAll(".design_btn"),
+  projectLink = document.querySelectorAll(".project_wrap .project"),
+  projectPage = document.querySelectorAll(".detali_page .project_page"),
+  exitBtn = document.querySelector(".detali_page .exit"),
   viewMoveState = false, //페이지 상or하 상태변수
   gsapMoving = false, //main_page 애니메이션 상태변수
-  isProjectOpen = false //project_page 상태변수
+  isProjectOpen = false; //project_page 상태변수
 
 //사이트 첫 진입 시 애니메이션 구동
 function startFunc() {
-  let backSlide = document.querySelector('.back_slide'),
-  centerTitle = document.querySelectorAll('.center_title'),
-  line = document.querySelectorAll('.page_btn .line'),
-  p = document.querySelectorAll('.page_btn p')
-  ti = gsap.timeline()
+  let backSlide = document.querySelector(".back_slide"),
+    centerTitle = document.querySelectorAll(".center_title"),
+    line = document.querySelectorAll(".page_btn .line"),
+    p = document.querySelectorAll(".page_btn p");
+  ti = gsap.timeline();
 
   ti.to(centerTitle[0], 0.6, {
     y: 0,
-  })
+  });
 
   ti.to(centerTitle[1], 0.6, {
     y: 0,
-  })
+  });
 
-  ti.to(pageBtn[0], 0.6 ,{
+  ti.to(
+    pageBtn[0],
+    0.6,
+    {
       y: 0,
       opacity: 1,
-  }, '-=0.3')
+    },
+    "-=0.3"
+  );
 
-  ti.to(pageBtn[1], 0.6, {
+  ti.to(
+    pageBtn[1],
+    0.6,
+    {
       y: 0,
       opacity: 1,
-  }, '-=0.3')
+    },
+    "-=0.3"
+  );
 
-  ti.to(backSlide, 3, {
+  ti.to(
+    backSlide,
+    3,
+    {
       opacity: 1,
-  }, '<')
+    },
+    "<"
+  );
 
   p.forEach((ele) => {
-    ti.to(ele, 0.6, {
-      color: '#fff'
-    }, '<')
-  })
+    ti.to(
+      ele,
+      0.6,
+      {
+        color: "#fff",
+      },
+      "<"
+    );
+  });
 
   line.forEach((ele) => {
-    ti.to(ele, 0.6, {
-        background: '#fff',
-    }, '<')
-  })
+    ti.to(
+      ele,
+      0.6,
+      {
+        background: "#fff",
+      },
+      "<"
+    );
+  });
 
   centerTitle.forEach((ele) => {
-    ti.to(ele, 0.6, {
-      color: '#fff'
-    }, '<')
-  })
+    ti.to(
+      ele,
+      0.6,
+      {
+        color: "#fff",
+      },
+      "<"
+    );
+  });
 }
-startFunc()
+startFunc();
 
 // sub_title 변화
 function subTitleFunc(title) {
-  let subTitle = document.querySelector('.sub_title')
+  let subTitle = document.querySelector(".sub_title");
   if (title) {
-    return (subTitle.textContent = title)
+    return (subTitle.textContent = title);
   }
   pages.forEach((ele, i) => {
-    if (ele.classList.contains('on')) {
+    if (ele.classList.contains("on")) {
       switch (i) {
         case 0:
-          subTitle.textContent = 'Home'
-          break
+          subTitle.textContent = "Home";
+          break;
         case 1:
-          subTitle.textContent = 'Profile'
-          break
+          subTitle.textContent = "Profile";
+          break;
         case 2:
-          subTitle.textContent = 'Skill'
-          break
+          subTitle.textContent = "Skill";
+          break;
       }
     }
-  })
+  });
 }
 
 //main<->project 이동
+let start_y, end_y
+
 function fullpageScroll() {
   inner.forEach((thisElement, i) => {
-    thisElement.addEventListener('wheel', (e) => {
-      e.preventDefault()
-      let { deltaY } = e
+    thisElement.addEventListener("wheel", (e) => {
+      console.log(e)
+      e.preventDefault();
+      let { deltaY } = e;
       if (i === 0 && !viewMoveState) {
         if (deltaY === 100) {
-          pageScroll(1)
-          subTitleFunc('Project')
+          pageScroll(1);
+          subTitleFunc("Project");
         }
       } else if (i === 1 && viewMoveState) {
         if (deltaY === -100) {
-          pageScroll(0)
-          subTitleFunc()
+          pageScroll(0);
+          subTitleFunc();
+        }
+      }
+    });
+    thisElement.addEventListener("touchstart", (e) => {
+      start_y = e.touches[0].screenY
+    })
+    thisElement.addEventListener("touchend", (e) => {
+      end_y = e.changedTouches[0].screenY
+      if (i === 0 && !viewMoveState) {
+        if (start_y > end_y) {
+          pageScroll(1);
+          subTitleFunc("Project");
+        }
+      } else if (i === 1 && viewMoveState) {
+        if (start_y < end_y) {
+          pageScroll(0);
+          subTitleFunc();
         }
       }
     })
-  })
+  });
 }
-fullpageScroll()
+
+fullpageScroll();
 
 //스크롤 이동 & footer 변화
 function pageScroll(direction) {
-  let borderBottom = document.querySelector('.outer_border .bottom')
-  btnChange()
+  let borderBottom = document.querySelector(".outer_border .bottom");
+  btnChange();
   gsap.to(window, 0.7, {
     scrollTo: inner[direction].offsetTop,
-  })
-  direction == 0 ? (viewMoveState = false) : (viewMoveState = true)
+  });
+  direction == 0 ? (viewMoveState = false) : (viewMoveState = true);
   if (viewMoveState) {
-    borderBottom.classList.add('on')
+    borderBottom.classList.add("on");
   } else if (!viewMoveState) {
-    borderBottom.classList.remove('on')
+    borderBottom.classList.remove("on");
   }
 }
 
 //스크롤 btn click
 function scrollBtnClick() {
-  scrollBtn.addEventListener('click', () => {
+  scrollBtn.addEventListener("click", () => {
     if (isProjectOpen) {
-      if(window.scrollY >= document.querySelector('.project_page.on').scrollHeight/2){
+      if (
+        window.scrollY >=
+        document.querySelector(".project_page.on").scrollHeight / 2
+      ) {
         gsap.to(window, 0.6, {
-          scrollTo: 0
-        })
-        return false
+          scrollTo: 0,
+        });
+        return false;
       }
       gsap.to(window, 0.6, {
         scrollTo: {
-          y: window.scrollY + 1000
-        }
-      })  
-      return false
+          y: window.scrollY + 1000,
+        },
+      });
+      return false;
     }
     if (!viewMoveState) {
-      pageScroll(1)
-      subTitleFunc('Project')
+      pageScroll(1);
+      subTitleFunc("Project");
     } else if (viewMoveState) {
-      pageScroll(0)
-      subTitleFunc()
+      pageScroll(0);
+      subTitleFunc();
     }
-  })
+  });
 }
-scrollBtnClick()
+scrollBtnClick();
 
 //btn style
 function btnChange() {
   if (!viewMoveState) {
-    scrollBtn.classList.add('bottom')
-    scrollBtn.querySelector('.text').textContent = 'Scroll Main'
+    scrollBtn.classList.add("bottom");
+    scrollBtn.querySelector(".text").textContent = "Scroll Main";
   } else if (viewMoveState) {
-    scrollBtn.classList.remove('bottom')
-    scrollBtn.querySelector('.text').textContent = 'Scroll Project'
+    scrollBtn.classList.remove("bottom");
+    scrollBtn.querySelector(".text").textContent = "Scroll Project";
   }
 }
 
 // btn mouseover
 function btnMouseOver() {
-  let scrollArrow = document.querySelector('.scroll_btn .arrow'),
-    sideArrowRight = document.querySelector('.side_btn.right .arrow'),
-    sideArrowLeft = document.querySelector('.side_btn.left .arrow'),
-    circles = document.querySelectorAll('.circle')
+  let scrollArrow = document.querySelector(".scroll_btn .arrow"),
+    sideArrowRight = document.querySelector(".side_btn.right .arrow"),
+    sideArrowLeft = document.querySelector(".side_btn.left .arrow"),
+    circles = document.querySelectorAll(".circle");
 
   designBtn.forEach((btn) => {
-    btn.addEventListener('mouseenter', () => {
-      if (!viewMoveState && btn.classList.contains('scroll_btn')) {
-        scrollArrow.style.top = '-4px'
-      } else if (viewMoveState && btn.classList.contains('scroll_btn')) {
-        scrollArrow.style.top = '-34px'
+    btn.addEventListener("mouseenter", () => {
+      if (!viewMoveState && btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-4px";
+      } else if (viewMoveState && btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-34px";
       }
 
-      if (btn.classList.contains('side_btn')) {
-        sideArrowRight.style.left = '-6px'
-        sideArrowLeft.style.left = '36px'
+      if (btn.classList.contains("side_btn")) {
+        sideArrowRight.style.left = "-6px";
+        sideArrowLeft.style.left = "36px";
       }
-    })
+    });
 
-    btn.addEventListener('mouseleave', () => {
-      if (btn.classList.contains('scroll_btn')) {
-        scrollArrow.style.top = '-16px'
-      } else if (btn.classList.contains('side_btn')) {
-        sideArrowRight.style.left = '-18px'
-        sideArrowLeft.style.left = '48px'
+    btn.addEventListener("mouseleave", () => {
+      if (btn.classList.contains("scroll_btn")) {
+        scrollArrow.style.top = "-16px";
+      } else if (btn.classList.contains("side_btn")) {
+        sideArrowRight.style.left = "-18px";
+        sideArrowLeft.style.left = "48px";
       }
-    })
-  })
+    });
+  });
 
   circles.forEach((circle) => {
-    circle.addEventListener('mousemove', (e) => {
+    circle.addEventListener("mousemove", (e) => {
       gsap.to(circle, 0.4, {
         x: (e.offsetX / e.target.getBoundingClientRect().width) * 60 - 30,
         y: (e.offsetY / e.target.getBoundingClientRect().height) * 60 - 30,
         scale: 0.8,
         onComplete: back,
-      })
-    })
+      });
+    });
 
     function back() {
       gsap.to(circle, 0.2, {
@@ -207,167 +261,178 @@ function btnMouseOver() {
         x: 0,
         y: 0,
         scale: 1,
-      })
+      });
     }
-  })
+  });
 }
-btnMouseOver()
+btnMouseOver();
 
 //sub page home btn
 function btnHome() {
-  let btns = document.querySelectorAll('.home_btn')
+  let btns = document.querySelectorAll(".home_btn");
   btns.forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       if (isProjectOpen) {
-        projectExit()
+        projectExit();
       }
-      gsapMoving = false
-      mainReturn()
+      gsapMoving = false;
+      mainReturn();
       pages.forEach((page) => {
-        page.classList.remove('on')
-      })
-      pages[0].classList.add('on')
+        page.classList.remove("on");
+      });
+      pages[0].classList.add("on");
       if (viewMoveState) {
-        pageScroll(0)
+        pageScroll(0);
       }
-      subTitleFunc()
-    })
-  })
+      subTitleFunc();
+    });
+  });
 }
-btnHome()
+btnHome();
 
 //sub page간 이동
 function btnSide() {
-  let profile = document.querySelector('.profile'),
-    skill = document.querySelector('.skill')
+  let profile = document.querySelector(".profile"),
+    skill = document.querySelector(".skill");
 
   sideBtn.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener("click", () => {
       if (i === 0) {
-        skill.classList.add('on')
-        skillAnimation()
-        profile.classList.remove('on')
+        skill.classList.add("on");
+        skillAnimation();
+        profile.classList.remove("on");
       } else if (i === 1) {
-        skill.classList.remove('on')
-        profile.classList.add('on')
+        skill.classList.remove("on");
+        profile.classList.add("on");
       }
-      subTitleFunc()
-    })
-  })
+      subTitleFunc();
+    });
+  });
 }
-btnSide()
+btnSide();
 
 //main animation
 function mainMouseSlide() {
-  let backSlide = document.querySelector('.back_slide'),
-    middleSlide = document.querySelector('.back_slide .middle_area'),
-    moveSlide = document.querySelector('.back_slide .left_area'),
-    main = document.querySelector('.main'),
-    profile = document.querySelector('.profile'),
-    skill = document.querySelector('.skill'),
-    tl = gsap.timeline()
+  let backSlide = document.querySelector(".back_slide"),
+    middleSlide = document.querySelector(".back_slide .middle_area"),
+    moveSlide = document.querySelector(".back_slide .left_area"),
+    main = document.querySelector(".main"),
+    profile = document.querySelector(".profile"),
+    skill = document.querySelector(".skill"),
+    tl = gsap.timeline();
 
   pageBtn.forEach((btn, i) => {
-    btn.addEventListener('click', () => {
-      gsapMoving = true
+    btn.addEventListener("click", () => {
+      gsapMoving = true;
       tl.to(moveSlide, 0.8, {
         width: 0,
-      })
-      tl.to(middleSlide, 0.8, {
-          width: '100%',
-      },'<')
-      main.classList.remove('on')
+      });
+      tl.to(
+        middleSlide,
+        0.8,
+        {
+          width: "100%",
+        },
+        "<"
+      );
+      main.classList.remove("on");
       if (i === 0) {
-        profile.classList.add('on')
+        profile.classList.add("on");
       } else if (i === 1) {
-        skill.classList.add('on')
-        skillAnimation()
+        skill.classList.add("on");
+        skillAnimation();
       }
-      subTitleFunc()
-    })
-  })
-  backSlide.addEventListener('mousemove', (e) => {
+      subTitleFunc();
+    });
+  });
+  backSlide.addEventListener("mousemove", (e) => {
     if (!gsapMoving) {
-      let { clientX } = e
+      let { clientX } = e;
       gsap.to(moveSlide, 1.4, {
         width: clientX - 70,
-      })
+      });
     }
-  })
+  });
 }
-mainMouseSlide()
+mainMouseSlide();
 
 function mainReturn() {
-  let middleSlide = document.querySelector('.back_slide .middle_area')
-  middleSlide.style.width = '0px'
+  let middleSlide = document.querySelector(".back_slide .middle_area");
+  middleSlide.style.width = "0px";
 }
 
 //detail page open
 function pageOpen(title) {
-  let subTitle = document.querySelector('.sub_title')
+  let subTitle = document.querySelector(".sub_title");
   if (!isProjectOpen) {
-    isProjectOpen = true
-    subTitle.textContent = title
-    document.body.style.overflow = 'auto'
-    window.scrollTo(0, 0)
-    btnChange()
-    viewMoveState = !viewMoveState
+    isProjectOpen = true;
+    subTitle.textContent = title;
+    document.body.style.overflow = "auto";
+    window.scrollTo(0, 0);
+    btnChange();
+    viewMoveState = !viewMoveState;
   } else if (isProjectOpen) {
-    isProjectOpen = false
-    document.body.style.overflow = 'hidden'
-    subTitleFunc()
-    window.scrollTo(0, inner[1].offsetTop)
-    btnChange()
-    viewMoveState = !viewMoveState
+    isProjectOpen = false;
+    document.body.style.overflow = "hidden";
+    subTitleFunc();
+    window.scrollTo(0, inner[1].offsetTop);
+    btnChange();
+    viewMoveState = !viewMoveState;
   }
 }
 
 //detail page event trigger
 projectLink.forEach((link, i) => {
-  link.addEventListener('click', () => {
-    let title = projectPage[i].dataset.title
-    projectPage[i].classList.add('on')
-    exitBtn.classList.add('on')
-    pageOpen(title)
-  })
-})
+  link.addEventListener("click", () => {
+    let title = projectPage[i].dataset.title;
+    projectPage[i].classList.add("on");
+    exitBtn.classList.add("on");
+    pageOpen(title);
+  });
+});
 
 //detail page 닫기
 function projectExit() {
   projectPage.forEach((page) => {
-    page.classList.remove('on')
-    exitBtn.classList.remove('on')
-    pageOpen()
-  })
+    page.classList.remove("on");
+    exitBtn.classList.remove("on");
+    pageOpen();
+  });
 }
 
 //detail page 닫기 trigger
-exitBtn.addEventListener('click', () => {
-  projectExit()
-  subTitleFunc('Project')
-})
+exitBtn.addEventListener("click", () => {
+  projectExit();
+  subTitleFunc("Project");
+});
 
 //skill page 애니메이션
 function skillAnimation() {
-  let block01 = document.querySelectorAll('.skill_html .block'),
-  block02 = document.querySelectorAll('.skill_css .block'),
-  block03 = document.querySelectorAll('.skill_javascript .block'),
-  block04 = document.querySelectorAll('.skill_react .block'),
-  block05 = document.querySelectorAll('.skill_jquery .block'),
-  block06 = document.querySelectorAll('.skill_redux .block')
+  let block01 = document.querySelectorAll(".skill_html .block"),
+    block02 = document.querySelectorAll(".skill_css .block"),
+    block03 = document.querySelectorAll(".skill_javascript .block"),
+    block04 = document.querySelectorAll(".skill_react .block"),
+    block05 = document.querySelectorAll(".skill_jquery .block"),
+    block06 = document.querySelectorAll(".skill_redux .block");
 
-  block01.forEach((block,i) => gsapFunc(block, i))
-  block02.forEach((block,i) => gsapFunc(block, i))
-  block03.forEach((block,i) => gsapFunc(block, i))
-  block04.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
-  block05.forEach((block,i) => {if(i < 14) gsapFunc(block, i)})
-  block06.forEach((block,i) => {if(i < 13) gsapFunc(block, i)})
+  block01.forEach((block, i) => gsapFunc(block, i));
+  block02.forEach((block, i) => gsapFunc(block, i));
+  block03.forEach((block, i) => gsapFunc(block, i));
+  block04.forEach((block, i) => {
+    if (i < 13) gsapFunc(block, i);
+  });
+  block05.forEach((block, i) => {
+    if (i < 14) gsapFunc(block, i);
+  });
+  block06.forEach((block, i) => {
+    if (i < 13) gsapFunc(block, i);
+  });
 
   function gsapFunc(block, i) {
     gsap.to(block, 0.1, {
       delay: i * 0.15,
-      background: '#20B5AE',
-      borderColor: '#20B5AE'
-    })
+      background: "#20B5AE",
+      borderColor: "#20B5AE",
+    });
   }
 }
